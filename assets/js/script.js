@@ -1,7 +1,9 @@
 var currentDate = dayjs().format('M/D/YYYY');
 var searchButtonEl = $('#search-button');
-var userCityEl = $('#user-city-name')
+var userCityEl = $('#user-city-name');
 var weatherApiKey = 'cb47f49a6af87f2d9fee75b2e1c52c27';
+var fiveDayForecast = $('#5-day-forecast');
+var cityNameEl = $('#city-name');
 
 function fetchCityWeatherData(lat,lon){
     var weatherApi = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid='+ weatherApiKey;
@@ -20,12 +22,16 @@ function fetchCityWeatherData(lat,lon){
             var currentHumidity = data.list[0].wind.speed;
 
             appendCurrentDate(currentTemp, currentWind, currentHumidity);
-            for(var i = 0; i < data.list.length; i + 7){
-                var tempF = (((data.list[i].main.temp - 273.15) * 9/5) + 32).toFixed(2);
+
+            for(var i = 0; i < data.list.length; i = i + 8){
+                var date = data.list[i].dt_txt.slice(0,10);
+                console.log(date);
+                var tempF = (((data.list[i].main.temp - 273.15) * 9/5) + 32)
                 var temp = tempF.toFixed(2);
                 var wind = data.list[i].main.humidity;
                 var humidity = data.list[i].wind.speed;
-                appendWeatherCard(temp,wind,humidity);
+
+                appendWeatherCard(temp,wind,humidity,date);
             }
             
         })
@@ -41,10 +47,20 @@ function appendCurrentDate(temp, wind,humidity){
     humidityEl.text(humidity + " %");
 }
 
-function appendWeatherCard(temp,wind,humidity){
+function appendWeatherCard(temp,wind,humidity,date){
+    var weatherCardDivEl = $('<div></div>')
+    fiveDayForecast.append(weatherCardDivEl);
+
+    var dateFormatted = dayjs(date).format('M/D/YYYY');
+    var dateEl = $('<h4>'+dateFormatted + '</h4>');
     var cardTempEl = $('<p>' + temp + '°F</p>')
     var cardWindEl = $('<p>' +wind + ' MPH</p>')
     var cardHumidityEl = $('<p>' + humidity + ' %</p>')
+
+    weatherCardDivEl.append(dateEl);
+    weatherCardDivEl.append(cardTempEl);
+    weatherCardDivEl.append(cardWindEl);
+    weatherCardDivEl.append(cardHumidityEl);
 }
 
 function convertUserCity(city){
@@ -62,13 +78,13 @@ function convertUserCity(city){
             console.log(latitude);
             longitude = data[0].lon;
             console.log(longitude);
+            cityNameEl.text(data[0].name);
             fetchCityWeatherData(latitude,longitude);
         })
-    
-        
 }
 
 searchButtonEl.on('click', function(event){
+    fiveDayForecast.empty();
     event.preventDefault()
     var userCity = userCityEl.val();
     console.log(userCity);
