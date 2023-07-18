@@ -17,26 +17,32 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city -->
 <body>
-    <header>
+    <header class="text-center">
         <h1>Weather Dashboard</h1>
     </header>
-    <main>
-        <aside class="m-3">
-            <form class="border-bottom pb-3">
-                <h2 class="form-label">Search for a City:</h2>
-                <input class="form-control mb-3" type="text" id="user-city-name">
-                <button id = 'search-button' class="btn btn-primary w-100">Search</button>
-            </form >
-        </aside>
-        <section class="border border-black">
-            <h3 id="city-name"></h3>
-            <p>Temp: <span id="temperature"></span></p>
-            <p>Wind: <span id="wind-speeds"></span></p>
-            <p>Humidity: <span id="humidity"></span></p>
-        </section>
-        <section id="5-day-forecast">
-            <h3>5-Day Forecast:</h3>
-        </section>
+    <main class="container-fluid">
+        <div class="row">
+            <aside id="search-bar" class="col-2">
+                <form class="border-bottom pb-3">
+                    <h2 class="form-label">Search for a City:</h2>
+                    <input class="form-control mb-3" type="text" id="user-city-name">
+                    <button id = 'search-button' class="btn btn-primary w-100">Search</button>
+                </form >
+            </aside>
+            <div class="col-8">
+                <section class="border border-black p-3">
+                    <h3 id="city-name"> <span id="current-date"></span></h3>
+                    <p>Temp: <span id="temperature"></span></p>
+                    <p>Wind: <span id="wind-speeds"></span></p>
+                    <p>Humidity: <span id="humidity"></span></p>
+                </section>
+                <h3 class="mt-2">5-Day Forecast:</h3>
+                <section class='container-fluid'>
+                    <div id="5-day-forecast" class="row gx-10">
+                    </div>
+                </section>
+            </div>
+        </div>
     </main>
     
 </body>
