@@ -9,7 +9,7 @@ var searchBarEl = $('#search-bar');
 var userSearchHistory = [];
 
 function fetchCityWeatherData(lat,lon){
-    var weatherApi = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid='+ weatherApiKey;
+    var weatherApi = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid='+ weatherApiKey;
     fetch(weatherApi)
         .then(function(response){
             return response.json();
