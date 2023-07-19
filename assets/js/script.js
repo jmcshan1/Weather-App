@@ -109,7 +109,7 @@ function appendWeatherCard(temp,wind,humidity,date,condition){
 }
 
 function convertUserCity(city){
-    var convertCityApi = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=cb47f49a6af87f2d9fee75b2e1c52c27'
+    var convertCityApi = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=cb47f49a6af87f2d9fee75b2e1c52c27'
     var latitude = '';
     var longitude = '';
     fetch(convertCityApi)
